@@ -3,6 +3,8 @@
 <h1>Meetings</h1>
 
 <% start_date = params.fetch(:start_date, Date.today).to_date %>
+<% p "start_date = #{start_date}"%>
+
 <% date_range = (start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week).to_a %>
 
 <table>
@@ -48,6 +50,18 @@
         <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
         <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% startdate = (meeting.start_date).to_date %>
+      <% enddate = (meeting.end_time).to_date %>
+      <% p "enddate = #{enddate}"%>
+      <% range_date = (startdate..enddate).to_a %>
+      <% p "range_date = #{range_date}"%>
+      <% range_date.each do |day| %>
+        <tr>
+          <td>Dia:</td>
+          <td><%= day %></td>
+          <td>tal dois</td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
