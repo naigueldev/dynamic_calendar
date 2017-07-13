@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Meetings</h1>
+
+<% start_date = params.fetch:(:start_date, Date.today).to_date %>
+<% date_range = (start_date.beginning_of_month..start_date.end_of_month) %>
+<% date_range.each_slide(7) do |week| %>
+  <div><%= week %></div>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th>Sun</th>
+      <th>Sun</th>
+      <th>Sun</th>
+      <th>Sun</th>
+      <th>Sun</th>
+      <th>Sun</th>
+      <th>Sun</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.name %></td>
+        <td><%= meeting.start_date %></td>
+        <td><%= meeting.end_time %></td>
+        <td><%= link_to 'Show', meeting %></td>
+        <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
+        <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Meeting', new_meeting_path %>
