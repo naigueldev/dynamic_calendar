@@ -31,7 +31,7 @@
 
 
 <table>
-  <% @meetings.each_with_index do |meeting, index| %>
+  <% @meetings.each do |meeting| %>
   <thead>
     <tr>
       <th>Name</th>
@@ -44,8 +44,8 @@
   <tbody>
     <tr>
       <td><%= meeting.name %></td>
-      <td><%= meeting.start_date %></td>
-      <td><%= meeting.end_time %></td>
+      <td><%= meeting.start_date.to_date.strftime("%d/%m/%Y") %></td>
+      <td><%= meeting.end_time.to_date.strftime("%d/%m/%Y") %></td>
       <td><%= link_to 'Show', meeting %></td>
       <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
       <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -58,7 +58,7 @@
       <% p "range_date = #{range_date}"%>
       <% range_date.each do |day| %>
           <tr>
-            <td colspan="6">Dia: <%= day %> | Valor: <%= number_field_tag "number"%></td>
+            <td colspan="6">Dia: <%= day.strftime("%d/%m/%Y") %> | Valor: <%= number_field_tag "number" %></td>
           </tr>
       <% end %>
     </tr>

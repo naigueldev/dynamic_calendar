@@ -26,15 +26,51 @@ class MeetingsController < ApplicationController
   def create
     @meeting = Meeting.new(meeting_params)
 
-    respond_to do |format|
-      if @meeting.save
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
-        format.json { render :show, status: :created, location: @meeting }
-      else
-        format.html { render :new }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
+    new_start_date = @meeting.start_date.to_date
+    new_end_time = @meeting.end_time.to_date
+    p "new_start_date = #{new_start_date}"
+    p "new_end_time = #{new_end_time}"
+
+    flag = false
+    @meetings = Meeting.all
+    @meetings.each do |meeting|
+      p "meetings : #{meeting.id}"
+
+      startdate = (meeting.start_date).to_date
+      enddate = (meeting.end_time).to_date
+      p "startdate = #{startdate}"
+      p "enddate = #{enddate}"
+      range_date = (startdate..enddate).to_a
+      range_date2 = (new_start_date..new_end_time).to_a
+      p "range_date = #{range_date}"
+      range_date.each do |day|
+        day_date = day.to_date
+        p "day : #{day.to_date}"
+
+        range_date2.each do |day2|
+          day_date2 = day2.to_date
+          p "day2 : #{day2.to_date}"
+          if day_date2 == day_date
+            p "Período de data já cadastrada"
+            flag = true
+          end
+        end
+
       end
+
+
     end
+
+
+    # respond_to do |format|
+    #   if @meeting.save
+    #     format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
+    #     format.json { render :show, status: :created, location: @meeting }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @meeting.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /meetings/1
