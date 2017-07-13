@@ -11,7 +11,7 @@
   <thead>
     <tr>
       <% date_range.slice(0, 7).each do |day| %>
-        <th><%= I18n.t("date.abbr_day_names")[day.wday]%></th>
+      <th><%= I18n.t("date.abbr_day_names")[day.wday]%></th>
       <%end%>
     </tr>
   </thead>
@@ -20,9 +20,9 @@
     <% date_range.each_slice(7) do |week| %>
     <tr>
       <% week.each do |day| %>
-        <td>
-          <%= day %>
-        </td>
+      <td>
+        <%= day %>
+      </td>
       <% end %>
     </tr>
     <% end %>
@@ -31,6 +31,7 @@
 
 
 <table>
+  <% @meetings.each_with_index do |meeting, index| %>
   <thead>
     <tr>
       <th>Name</th>
@@ -41,29 +42,30 @@
   </thead>
 
   <tbody>
-    <% @meetings.each do |meeting| %>
-      <tr>
-        <td><%= meeting.name %></td>
-        <td><%= meeting.start_date %></td>
-        <td><%= meeting.end_time %></td>
-        <td><%= link_to 'Show', meeting %></td>
-        <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
-        <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= meeting.name %></td>
+      <td><%= meeting.start_date %></td>
+      <td><%= meeting.end_time %></td>
+      <td><%= link_to 'Show', meeting %></td>
+      <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
+      <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <tr>
       <% startdate = (meeting.start_date).to_date %>
       <% enddate = (meeting.end_time).to_date %>
       <% p "enddate = #{enddate}"%>
       <% range_date = (startdate..enddate).to_a %>
       <% p "range_date = #{range_date}"%>
       <% range_date.each do |day| %>
-        <tr>
-          <td>Dia:</td>
-          <td><%= day %></td>
-          <td>tal dois</td>
-        </tr>
+          <tr>
+            <td colspan="6">Dia: <%= day %> | Valor: <%= number_field_tag "number"%></td>
+          </tr>
       <% end %>
-    <% end %>
+    </tr>
+
   </tbody>
+
+  <% end %>
 </table>
 
 <br>
