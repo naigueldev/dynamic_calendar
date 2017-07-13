@@ -1,32 +1,42 @@
-<%= form_for(meeting) do |f| %>
-  <% if meeting.errors.any? %>
+
+
+
+
+  <div id="form_meeting">
+
+
+    <%= form_for(@meeting, :remote=> true) do |f| %>
+    <% if @meeting.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this @meeting from being saved:</h2>
 
       <ul>
-      <% meeting.errors.full_messages.each do |message| %>
+        <% @meeting.errors.full_messages.each do |message| %>
         <li><%= message %></li>
-      <% end %>
+        <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
 
-  <div class="field">
-    <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
-  </div>
+    <div class="field">
+      <%= f.label :start_date %>
+      <%= f.datetime_select :start_date %>
+    </div>
 
-  <div class="field">
-    <%= f.label :end_time %>
-    <%= f.datetime_select :end_time %>
-  </div>
+    <div class="field">
+      <%= f.label :end_time %>
+      <%= f.datetime_select :end_time %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
+
+
   </div>
-<% end %>
