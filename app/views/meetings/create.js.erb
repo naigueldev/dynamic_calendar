@@ -1,9 +1,5 @@
 alert('Período da DATA JÁ EXISTE !');
 
-
-$("#form_meeting").remove();
-$('#meeting_form_container').append("<%= j render 'form' %>");
-
-
-// $('#form_meeting').html('<%# escape_javascript( render 'meetings/form' ) %>').css("display","none");
-// $('#form_meeting').fadeIn('slow', function() {});
+$('#form_meeting').html('<%= escape_javascript( render 'form' ) %>').css("display","none");
+$('#form_meeting').fadeIn('slow', function() {});
+$('#new_meeting').trigger("reset");
